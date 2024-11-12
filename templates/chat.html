@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>聊天介面</title>
+</head>
+<body>
+    <h1>聊天介面</h1>
+    <form method="post">
+        <input type="text" name="query" placeholder="請輸入您的問題" style="width: 300px;">
+        <input type="submit" value="送出">
+    </form>
+    {% if answer %}
+    <h2>回答：</h2>
+    <p>{{ answer }}</p>
+    <h3>來源：</h3>
+    <ul>
+        {% for source in sources %}
+        <li><a href="{{ source }}">{{ source }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

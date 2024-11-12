@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  rag_chat_app:
+    build: .
+    container_name: rag_chat_app
+    ports:
+      - "7860:7860"
+    env_file:
+      - .env
+    volumes:
+      - ./content/data:/content/data
+      - ./chroma_db:/chroma_db
+    restart: always

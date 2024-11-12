@@ -1,0 +1,26 @@
+# 環境變數
+.env
+
+
+# Python 快取檔案
+__pycache__/
+*.pyc
+
+# 日誌檔案
+*.log
+
+# Docker 產生的暫存檔案（視情況而定）
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# 虛擬環境
+myenv/
+venv/
+
+# 個人化配置檔案
+.vscode/
+.idea/

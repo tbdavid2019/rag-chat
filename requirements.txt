@@ -1,0 +1,13 @@
+langchain>=0.0.260
+langchain-openai
+langchain-community
+langchain-chroma
+openai
+chromadb
+faiss-cpu
+transformers
+torch
+sentence_transformers
+python-dotenv
+pypdf
+gradio
