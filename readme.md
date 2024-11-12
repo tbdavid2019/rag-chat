@@ -16,15 +16,14 @@ Features
 Prerequisites
 
 	•	Python 3.9 or higher
-	•	OpenAI API key
 	•	Required Python packages (see requirements.txt)
 
 Installation
 
 1. Clone the Repository
 
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/tbdavid2019/rag-chat.git
+cd rag-chat
 
 2. Install Dependencies
 
@@ -37,7 +36,7 @@ pip install -r requirements.txt
 Create a .env file in the project root directory and add the following:
 
 OPENAI_API_KEY=your-openai-api-key
-OPENAI_API_BASE=http://Bedroc-Proxy-RCrbdJs2OHgQ-1123811820.us-west-2.elb.amazonaws.com/api/v1
+OPENAI_API_BASE=http://openai.com/api/v1
 CHAT_MODEL=anthropic.claude-3-5-sonnet-20241022-v2:0
 EMBEDDING_MODEL=cohere.embed-multilingual-v3
 RERANKER_MODEL=bge-reranker-base
@@ -68,13 +67,13 @@ In another terminal window, run:
 
 python app.py
 
-This starts the Flask web application on http://localhost:5000.
+This starts the Flask web application on http://localhost:7860.
 
 Using the Application
 
 Web Interface
 
-Open a web browser and navigate to http://localhost:5000 to access the chat interface.
+Open a web browser and navigate to http://localhost:7860 to access the chat interface.
 	•	Enter your query in the input box.
 	•	Submit the query to receive an answer based on the content of your PDFs.
 	•	The response includes citations of the source documents.
@@ -82,7 +81,7 @@ Open a web browser and navigate to http://localhost:5000 to access the chat inte
 API Interface
 
 You can interact with the chatbot via an API endpoint compatible with OpenAI’s API format.
-	•	Endpoint: http://localhost:5000/v1/chat/completions
+	•	Endpoint: http://localhost:7860/v1/chat/completions
 	•	Method: POST
 	•	Request Format:
 
