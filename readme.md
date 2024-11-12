@@ -1,4 +1,6 @@
-rag-chat
+確定，以下是更新的 README.md，使用了您的 GitHub 儲存庫 tbdavid2019/rag-chat，並確保中文版本使用繁體中文。
+
+RAG-CHAT
 
 A Retrieval-Augmented Generation (RAG) chatbot that answers questions based on uploaded PDF documents. This project utilizes OpenAI’s GPT models, Hugging Face models for embeddings and re-ranking, and provides a Gradio interface for user interaction.
 
@@ -21,37 +23,38 @@ Installation
 
 	1.	Clone the Repository
 
+```
 git clone https://github.com/tbdavid2019/rag-chat.git
 cd rag-chat
-
+```
 
 	2.	Set Up Environment Variables
 Create a .env file in the root directory and add the following variables:
-
+```
 OPENAI_API_KEY=your-openai-api-key
 OPENAI_API_BASE=https://api.openai.com/v1
 PDF_FOLDER=/content/data
 CHROMA_DB_DIR=/chroma_db
 HF_TOKEN=your-huggingface-access-token
-
+```
 	•	Replace your-openai-api-key with your actual OpenAI API key.
 	•	Replace your-huggingface-access-token with your Hugging Face access token.
 Note: Ensure that your .env file is not committed to version control for security reasons. Add .env to your .gitignore file.
 
 	3.	Prepare the Data Directories
 Create the necessary directories for data storage:
-
+```
 mkdir -p content/data
 mkdir chroma_db
-
+```
 	•	Place your PDF files into the content/data directory.
 
 	4.	Build and Run the Docker Containers
 Build the Docker image and start the containers using Docker Compose:
-
+```
 docker-compose build
 docker-compose up -d
-
+```
 The application should now be running and accessible.
 
 Configuration
@@ -66,14 +69,15 @@ Usage
 
 	1.	Access the Gradio Interface
 Open your browser and navigate to:
-
+```
 http://localhost:7860
-
+```
 Replace localhost with your server’s IP address if running remotely.
 
 	2.	Interact with the Chatbot
 	•	Enter your query in the text box.
 	•	The chatbot will respond based on the content of the uploaded PDFs.
+
 	3.	Add More PDFs
 	•	Place additional PDF files into the content/data directory.
 	•	The pdf_watcher.py script will automatically detect and process new PDFs.
@@ -89,93 +93,95 @@ Acknowledgments
 	•	Gradio for the user interface framework.
 	•	LangChain for building the retrieval and QA chains.
 
-rag-chat
+RAG-CHAT
 
-一个基于检索增强生成（RAG）的聊天机器人，能够根据上传的 PDF 文档回答问题。该项目使用了 OpenAI 的 GPT 模型、Hugging Face 的嵌入和重排序模型，并提供了 Gradio 界面供用户交互。
+一個基於檢索增強生成（RAG）的聊天機器人，能夠根據上傳的 PDF 文件回答問題。此項目使用了 OpenAI 的 GPT 模型、Hugging Face 的嵌入和重排序模型，並提供了 Gradio 介面供使用者互動。
 
 特性
 
-	•	文档上传和处理：自动处理 PDF 文档并提取文本内容。
-	•	检索增强生成：使用向量嵌入和检索器，根据查询找到相关文档。
-	•	重排序：实现了重排序机制，提升检索文档的相关性。
-	•	Gradio 界面：提供了用户友好的界面用于与聊天机器人交互。
-	•	Docker 化部署：包含 Docker 和 Docker Compose 配置，便于部署。
+	•	文件上傳和處理：自動處理 PDF 文件並提取文本內容。
+	•	檢索增強生成：使用向量嵌入和檢索器，根據查詢找到相關文件。
+	•	重排序：實現了重排序機制，提高檢索文件的相關性。
+	•	Gradio 介面：提供了使用者友好的介面，用於與聊天機器人互動。
+	•	Docker 化部署：包含 Docker 和 Docker Compose 配置，方便部署。
 
 要求
 
 	•	Docker
 	•	Docker Compose
-	•	访问 OpenAI API
-	•	访问 Hugging Face 模型（如果需要，需提供访问令牌）
+	•	訪問 OpenAI API
+	•	訪問 Hugging Face 模型（如果需要，需提供訪問權杖）
 
-安装
+安裝
 
-	1.	克隆仓库
-
+	1.	克隆儲存庫
+```
 git clone https://github.com/tbdavid2019/rag-chat.git
 cd rag-chat
+```
 
-
-	2.	设置环境变量
-在根目录下创建 .env 文件，添加以下变量：
-
+	2.	設定環境變數
+在根目錄下創建 .env 文件，添加以下變數：
+```
 OPENAI_API_KEY=your-openai-api-key
 OPENAI_API_BASE=https://api.openai.com/v1
 PDF_FOLDER=/content/data
 CHROMA_DB_DIR=/chroma_db
 HF_TOKEN=your-huggingface-access-token
+```
+	•	將 your-openai-api-key 替換為您的 OpenAI API 金鑰。
+	•	將 your-huggingface-access-token 替換為您的 Hugging Face 訪問權杖。
+注意：為了安全起見，請確保您的 .env 文件未被提交到版本控制系統。在 .gitignore 文件中添加 .env。
 
-	•	将 your-openai-api-key 替换为您的 OpenAI API 密钥。
-	•	将 your-huggingface-access-token 替换为您的 Hugging Face 访问令牌。
-注意：为了安全，请确保您的 .env 文件未被提交到版本控制系统。将 .env 添加到 .gitignore 文件中。
-
-	3.	准备数据目录
-创建用于存储数据的必要目录：
-
+	3.	準備資料目錄
+創建必要的目錄用於資料存儲：
+```
 mkdir -p content/data
 mkdir chroma_db
+```
+	•	將您的 PDF 文件放入 content/data 目錄。
 
-	•	将您的 PDF 文件放置在 content/data 目录中。
-
-	4.	构建并运行 Docker 容器
-使用 Docker Compose 构建镜像并启动容器：
-
+	4.	構建並運行 Docker 容器
+使用 Docker Compose 構建映像並啟動容器：
+```
 docker-compose build
 docker-compose up -d
-
-应用程序现在应该已经启动并可以访问。
+```
+應用程式現在應該已經啟動並可訪問。
 
 配置
 
-	•	Dockerfile：包含构建 Docker 镜像的指令。
-	•	docker-compose.yml：定义了 Docker Compose 的服务、卷和环境变量。
-	•	supervisord.conf：配置了 supervisord，以便在 Docker 容器中运行多个进程。
-	•	app.py：主应用程序脚本，启动 Gradio 界面并处理 PDF。
-	•	pdf_watcher.py：监视新 PDF 并处理的脚本。
+	•	Dockerfile：包含構建 Docker 映像的指令。
+	•	docker-compose.yml：定義了 Docker Compose 的服務、卷和環境變數。
+	•	supervisord.conf：配置了 supervisord，以便在 Docker 容器中運行多個進程。
+	•	app.py：主應用程式腳本，啟動 Gradio 介面並處理 PDF。
+	•	pdf_watcher.py：監視並處理新 PDF 的腳本。
 
 使用方法
 
-	1.	访问 Gradio 界面
-在浏览器中打开：
+	1.	訪問 Gradio 介面
+在瀏覽器中打開：
 
 http://localhost:7860
 
-如果在远程运行，请将 localhost 替换为您的服务器 IP 地址。
+如果在遠端運行，請將 localhost 替換為您的服務器 IP 地址。
 
-	2.	与聊天机器人交互
-	•	在文本框中输入您的查询。
-	•	聊天机器人将根据上传的 PDF 内容进行回答。
+	2.	與聊天機器人互動
+	•	在文本框中輸入您的查詢。
+	•	聊天機器人將根據上傳的 PDF 內容進行回答。
 	3.	添加更多 PDF
-	•	将额外的 PDF 文件放入 content/data 目录。
-	•	pdf_watcher.py 脚本会自动检测并处理新的 PDF。
+	•	將新的 PDF 文件放入 content/data 目錄。
+	•	pdf_watcher.py 腳本會自動檢測並處理新的 PDF。
 
-许可证
+授權許可
 
-本项目使用 MIT 许可证。
+本項目使用 MIT 許可證。
 
-致谢
+致謝
 
-	•	感谢 OpenAI 提供的 GPT 模型。
-	•	感谢 Hugging Face 提供的 Transformer 模型。
-	•	感谢 Gradio 提供的用户界面框架。
-	•	感谢 LangChain 提供的检索和问答链构建工具。
+	•	感謝 OpenAI 提供的 GPT 模型。
+	•	感謝 Hugging Face 提供的 Transformer 模型。
+	•	感謝 Gradio 提供的使用者介面框架。
+	•	感謝 LangChain 提供的檢索和問答鏈構建工具。
+
+	
