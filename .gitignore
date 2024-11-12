@@ -24,3 +24,5 @@ venv/
 # 個人化配置檔案
 .vscode/
 .idea/
+
+chroma_db/
