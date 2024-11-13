@@ -6,13 +6,14 @@ from watchdog.events import FileSystemEventHandler
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai.embeddings import OpenAIEmbeddings
-from langchain_chroma import Chroma  # 更新导入
+from langchain_chroma import Chroma
 from dotenv import load_dotenv
 import openai
+import copy
+import gc
 
 # 加载环境变量
 load_dotenv()
-
 
 # 获取环境变量或使用默认值
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -47,8 +48,6 @@ vectorstore = Chroma(
     persist_directory=CHROMA_DB_DIR
 )
 
-
-
 class PDFHandler(FileSystemEventHandler):
     def on_created(self, event):
         if event.is_directory:
@@ -67,14 +66,38 @@ def process_pdf(pdf_path):
     )
     docs = text_splitter.split_documents(documents)
 
-    # 添加来源信息
+    max_tokens = 2000
+    average_characters_per_token = 4
+    max_characters = max_tokens * average_characters_per_token
+
+    # 检查并拆分过长的文本块
+    valid_docs = []
     for doc in docs:
+        text_length = len(doc.page_content)
+        if text_length <= max_characters:
+            valid_docs.append(doc)
+        else:
+            # 进一步拆分过长的文本块
+            sub_splits = text_splitter.split_text(doc.page_content)
+            for split in sub_splits:
+                if len(split) <= max_characters:
+                    new_doc = copy.deepcopy(doc)
+                    new_doc.page_content = split
+                    valid_docs.append(new_doc)
+                else:
+                    print(f"Text chunk still too long after splitting, skipping.")
+
+    # 添加来源信息
+    for doc in valid_docs:
         doc.metadata['source'] = pdf_path
 
     # 创建嵌入并加入向量数据库
-    vectorstore.add_documents(docs)
-    # 不需要调用 vectorstore.persist()，数据会自动持久化
+    vectorstore.add_documents(valid_docs)
     print(f"Processed and indexed {pdf_path}")
+
+    # 清理内存
+    del valid_docs
+    gc.collect()
 
 if __name__ == "__main__":
     # 在启动时处理现有的 PDF 文件

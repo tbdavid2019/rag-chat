@@ -18,4 +18,7 @@ python3 app.py
 
 
 
-
+---
+nohup /home/ec2-user/myenv/bin/python3 pdf_watcher.py > pdf_watcher.log 2>&1 &
+nohup /home/ec2-user/myenv/bin/python3 app.py > app.log 2>&1 &
+ps aux | grep python3
