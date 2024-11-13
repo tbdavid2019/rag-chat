@@ -15,24 +15,6 @@ from langchain_openai.embeddings import OpenAIEmbeddings
 # 加载环境变量
 load_dotenv()
 
-
-
-# 初始化嵌入模型
-embedding_function = OpenAIEmbeddings(
-    model=EMBEDDING_MODEL,
-    openai_api_key=OPENAI_API_KEY,
-    openai_api_base=OPENAI_API_BASE
-)
-
-# 初始化向量数据库
-vectorstore = Chroma(
-    collection_name="pdf_embeddings",
-    embedding_function=embedding_function,
-    persist_directory=CHROMA_DB_DIR
-)
-
-
-
 # 获取环境变量或使用默认值
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
@@ -43,7 +25,7 @@ OPENAI_API_BASE = os.getenv(
     "http://your-api-endpoint/api/v1"
 )
 CHAT_MODEL = os.getenv("CHAT_MODEL", "your-model-name")  # 替换为您的模型名称
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "your-embedding-model")  # 替换为您的嵌入模型
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-ada-002")  # 替换为您的嵌入模型
 RERANKER_MODEL = os.getenv("RERANKER_MODEL", "BAAI/bge-m3")
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "1000"))
 CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "200"))
@@ -63,7 +45,7 @@ embedding_function = OpenAIEmbeddings(
 vectorstore = Chroma(
     collection_name="pdf_embeddings",
     embedding_function=embedding_function,
-    persist_directory="./chroma_db"
+    persist_directory=CHROMA_DB_DIR
 )
 
 retriever = vectorstore.as_retriever()
@@ -79,7 +61,6 @@ reranker_model = AutoModel.from_pretrained(
     trust_remote_code=True,
     use_auth_token=HF_TOKEN
 )
-
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 reranker_model.to(device)
@@ -191,6 +172,5 @@ def process_pdfs():
 if __name__ == '__main__':
     # 首先处理 PDF 文档
     process_pdfs()
-    # 启动 Gradio 接口，设置 share=True 以生成公共链接
+    # 启动 Gradio 接口，设置 server_name="0.0.0.0" 以监听所有接口
     iface.launch(server_name="0.0.0.0", server_port=7860)
-    
